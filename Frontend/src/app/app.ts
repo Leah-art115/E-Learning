@@ -21,7 +21,12 @@ export class App {
       const url = event.urlAfterRedirects || event.url;
 
       const hiddenRoutes = ['/login', '/register', '/pending', '/under-review'];
-      this.hideFooter = hiddenRoutes.includes(url) || url.startsWith('/student');
+this.hideFooter =
+  hiddenRoutes.includes(url) ||
+  url.startsWith('/student') ||
+  url.startsWith('/instructor') ||
+  url.startsWith('/admin');
+
     }
   });
 }

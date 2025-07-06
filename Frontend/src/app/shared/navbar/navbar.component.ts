@@ -27,11 +27,20 @@ export class NavbarComponent implements OnInit {
       const url = event.urlAfterRedirects || event.url;
 
       const hiddenAuthRoutes = ['/login', '/register', '/pending', '/under-review'];
-      this.hideAuthButtons = hiddenAuthRoutes.includes(url) || url.startsWith('/student');
+this.hideAuthButtons =
+  hiddenAuthRoutes.includes(url) ||
+  url.startsWith('/student') ||
+  url.startsWith('/instructor') ||
+  url.startsWith('/admin');
 
-      const hiddenSecondNavbarRoutes = ['/login', '/register', '/pending', '/under-review'];
-      this.hideSecondNavbar = hiddenSecondNavbarRoutes.includes(url) || url.startsWith('/student');
+const hiddenSecondNavbarRoutes = ['/login', '/register', '/pending', '/under-review'];
+this.hideSecondNavbar =
+  hiddenSecondNavbarRoutes.includes(url) ||
+  url.startsWith('/student') ||
+  url.startsWith('/instructor') ||
+  url.startsWith('/admin');
 
+  
       this.userName = localStorage.getItem('userName');
       this.userRole = localStorage.getItem('userRole');
 
