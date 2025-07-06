@@ -1,0 +1,19 @@
+<div class="certifications-container">
+  <h2>My Certifications</h2>
+
+  <div *ngIf="certificates.length === 0" class="no-certificates">
+    You haven't completed any courses yet.
+  </div>
+
+  <ul class="certificate-list" *ngIf="certificates.length > 0">
+    <li *ngFor="let cert of certificates" class="certificate-item">
+      <div class="cert-info">
+        <h3>{{ cert.courseTitle }}</h3>
+        <p>Completed on {{ cert.dateCompleted }}</p>
+      </div>
+      <button (click)="downloadCertificate(cert.certificateImage)">
+        <i class="fas fa-download"></i> Download PDF
+      </button>
+    </li>
+  </ul>
+</div>

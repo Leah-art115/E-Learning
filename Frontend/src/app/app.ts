@@ -15,12 +15,15 @@ export class App {
   protected title = 'Frontend';
   hideFooter = false;
 
-  constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        const hiddenRoutes = ['/login', '/register'];
-        this.hideFooter = hiddenRoutes.includes(event.url);
-      }
-    });
-  }
+ constructor(private router: Router) {
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      const url = event.urlAfterRedirects || event.url;
+
+      const hiddenRoutes = ['/login', '/register', '/pending', '/under-review'];
+      this.hideFooter = hiddenRoutes.includes(url) || url.startsWith('/student');
+    }
+  });
+}
+
 }

@@ -4,7 +4,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { CoursesComponent } from './pages/courses/courses.component';
-import { StudentDashboardComponent } from './pages/student/dashboard/student-dashboard.component';
+import { STUDENT_ROUTES } from './pages/student/student.routes';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: 'student',
-    component: StudentDashboardComponent,
-    title: 'Student Dashboard'
+    loadComponent: () => import('./pages/student/layout/student-layout.component').then(m => m.StudentLayoutComponent),
+    children: STUDENT_ROUTES
   }
 ];

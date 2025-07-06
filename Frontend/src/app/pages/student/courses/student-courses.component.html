@@ -1,0 +1,29 @@
+<div class="student-courses-container">
+  <h2>My Enrolled Courses</h2>
+
+  <div *ngIf="enrolledCourses.length === 0" class="no-courses">
+    You haven't enrolled in any courses yet.
+  </div>
+
+  <div class="course-grid" *ngIf="enrolledCourses.length > 0">
+    <div *ngFor="let course of enrolledCourses" class="course-card">
+      <div class="course-details">
+        <h3>{{ course.title }}</h3>
+        <p>Instructor: {{ course.instructor }}</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="course.progress"></div>
+        </div>
+        <p class="progress-text">{{ course.progress }}% completed</p>
+      </div>
+
+      <div class="course-actions">
+        <button class="continue-btn" (click)="continueCourse(course.id)">
+          <i class="fas fa-play-circle"></i> Continue
+        </button>
+        <button class="drop-btn" (click)="dropCourse(course.id)">
+          Drop Course
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

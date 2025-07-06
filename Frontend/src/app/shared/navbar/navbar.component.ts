@@ -12,31 +12,38 @@ import { FormsModule } from '@angular/forms';
 })
 export class NavbarComponent implements OnInit {
   hideAuthButtons = false;
+  hideSecondNavbar = false;
   userName: string | null = null;
   userRole: string | null = null;
   searchQuery = '';
   selectedCategory = 'all';
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        const authRoutes = ['/login', '/register', '/pending', '/under-review'];
-        this.hideAuthButtons = authRoutes.includes(event.url);
-        this.userName = localStorage.getItem('userName');
-        this.userRole = localStorage.getItem('userRole');
+  private router: Router,
+  private route: ActivatedRoute
+) {
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      const url = event.urlAfterRedirects || event.url;
 
-        // Check for category parameter in URL
-        this.route.queryParams.subscribe(params => {
-          if (params['category']) {
-            this.selectedCategory = params['category'];
-          }
-        });
-      }
-    });
-  }
+      const hiddenAuthRoutes = ['/login', '/register', '/pending', '/under-review'];
+      this.hideAuthButtons = hiddenAuthRoutes.includes(url) || url.startsWith('/student');
+
+      const hiddenSecondNavbarRoutes = ['/login', '/register', '/pending', '/under-review'];
+      this.hideSecondNavbar = hiddenSecondNavbarRoutes.includes(url) || url.startsWith('/student');
+
+      this.userName = localStorage.getItem('userName');
+      this.userRole = localStorage.getItem('userRole');
+
+      this.route.queryParams.subscribe(params => {
+        if (params['category']) {
+          this.selectedCategory = params['category'];
+        }
+      });
+    }
+  });
+}
+
 
   ngOnInit() {
     // Initialize selected category from URL params
